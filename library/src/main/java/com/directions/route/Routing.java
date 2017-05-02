@@ -16,6 +16,7 @@ public class Routing extends AbstractRouting {
     private final boolean  alternativeRoutes;
     private final List<LatLng> waypoints;
     private final int avoidKinds;
+    private final int departureTime;
     private final boolean optimize;
     private final String language;
     private final String key;
@@ -25,6 +26,7 @@ public class Routing extends AbstractRouting {
         this.travelMode = builder.travelMode;
         this.waypoints = builder.waypoints;
         this.avoidKinds = builder.avoidKinds;
+        this.departureTime  = builder.departureTime;
         this.optimize = builder.optimize;
         this.alternativeRoutes = builder.alternativeRoutes;
         this.language = builder.language;
@@ -76,6 +78,11 @@ public class Routing extends AbstractRouting {
             stringBuilder.append("&alternatives=true");
         }
 
+        //departure time
+        if ( departureTime > 0 ) {
+            stringBuilder.append("&departure_time=").append(departureTime);
+        }
+
         // sensor
         stringBuilder.append("&sensor=true");
 
@@ -100,6 +107,7 @@ public class Routing extends AbstractRouting {
         private RoutingListener listener;
         private boolean optimize;
         private String language;
+        private int departureTime = 0;
         private String key;
 
         public Builder () {
@@ -136,6 +144,11 @@ public class Routing extends AbstractRouting {
 
         public Builder optimize(boolean optimize) {
             this.optimize = optimize;
+            return this;
+        }
+
+        public Builder departureTime(int timestamp) {
+            this.departureTime = timestamp;
             return this;
         }
 
